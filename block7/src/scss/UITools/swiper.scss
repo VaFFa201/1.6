@@ -1,0 +1,15 @@
+.swiper,
+.swiper-slide,
+.swiper-wrapper {
+    box-sizing: border-box;
+}
+
+.swiper-slide {
+    max-width: 240px;
+}
+
+@media (min-width: 768px) {
+    .swiper-slide {
+        max-width: unset;
+    }
+}
