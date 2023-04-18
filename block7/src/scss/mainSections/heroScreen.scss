@@ -83,7 +83,7 @@
     &__text {
         max-height: 90px;
         overflow: hidden;
-        transition: max-height 1s ease-in-out;
+        transition: max-height 0.5s ease-in-out;
 
         p {
             line-height: 18px;
@@ -96,7 +96,7 @@
 
         &--extended {
             max-height: 600px;
-            transition: max-height 1s ease-in-out;
+            transition: max-height 0.5s ease-in-out;
         }
     }
 
@@ -134,13 +134,14 @@
         min-width: 310px;
 
         &__text {
-            max-height: 160px;
+            max-height: 157px;
             line-height: 20px;
             letter-spacing: 0.2px;
+            transition: max-height 0.5s ease-in-out;
 
             &--extended {
                 max-height: 600px;
-                transition: max-height 1s ease-in-out;
+                transition: max-height 0.5s ease-in-out;
             }
         }
     }
