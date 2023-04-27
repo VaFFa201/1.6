@@ -14,20 +14,23 @@ const menuButton = document.querySelector('.header__burger-button');
 const menuButtonIcon = menuButton.querySelector('.burger-icon');
 
 const main = document.querySelector('.main');
-const header = document.querySelector('.header')
+const navList = main.querySelector('.navigation__list');
+const navItems = navList.querySelectorAll('.navigation__link');
+
+const header = document.querySelector('.header');
 const asideMenu = document.querySelector('.aside-menu');
+const asideNavLinks = asideMenu.querySelector('.aside-menu__nav-links');
+const asideNavItems = asideNavLinks.querySelectorAll('.aside-menu__nav-link');
+
 const headerActions = document.querySelector('.header__actions');
 
-const feedbackButtons = document.querySelectorAll('.contact-button2');
 const asideFeedback = document.querySelector('.aside-feedback');
 const closeFeedback = asideFeedback.querySelector('.aside-feedback__close-button');
 const firstFeedbackInput = asideFeedback.querySelector('.aside-feedback__input');
 
 const asideRecall = document.querySelector('.aside-recall');
-const recallButtons = document.querySelectorAll('.contact-button1');
 const closeRecall = asideRecall.querySelector('.aside-recall__close-button');
 const firstRecallInput = asideRecall.querySelector('.aside-recall__input');
-
 
 const tecTypeList = document.querySelector('.tec-types__list');
 const tecTypeItemTemplate = document.querySelector('.tec-type-template').content;
@@ -39,6 +42,34 @@ const tecTypeShowAllIcon = tecTypeShowAll.querySelector('.show-all-btn__icon');
 const priceList = document.querySelector('.price__list');
 const priceItemTemplate = document.querySelector('.price-item-template').content;
 const newPriceTemplate = priceItemTemplate.querySelector('.price__item');
+
+const doAsideLinkActive = (event) => {
+    let target = event.target;
+    console.log(target)
+    if (target.classList.contains('aside-menu__nav-link')) {
+        for (let i = 0; i < asideNavItems.length; i++) {
+            asideNavItems[i].classList.remove('aside-menu__nav-link--active');
+        }
+        target.classList.add('aside-menu__nav-link--active');
+    }
+}
+
+asideNavLinks.addEventListener('click', doAsideLinkActive);
+
+const doNavLinkActive = (event) => {
+    let target = event.target;
+    console.log(target)
+    if (target.classList.contains('navigation__link')) {
+        for (let i = 0; i < navItems.length; i++) {
+            navItems[i].classList.remove('navigation__link--active');
+        }
+        target.classList.add('navigation__link--active');
+    }
+}
+
+navList.addEventListener('click', doNavLinkActive);
+
+
 
 const showDescriptionText = function () {
     descriptionText.classList.toggle('description__text--extended');
@@ -95,44 +126,40 @@ const openFeedback = function () {
     if (main.classList.contains('main--blured')) {
         asideMenu.classList.remove('aside-menu--active');
         menuButtonIcon.classList.remove('burger-icon--active');
-        asideFeedback.classList.add('aside-feedback--active');
         headerActions.classList.remove('header__actions--blured');
         header.classList.add('header--blured');
     } else {
         main.classList.add('main--blured');
         document.body.classList.add('body--lock');
         header.classList.add('header--blured');
-
         if (mediaQueryDesktop.matches) {
             asideMenu.classList.add('aside-menu--blured');
         }
-        asideFeedback.classList.add('aside-feedback--active');
-        firstFeedbackInput.focus();
     }
+    asideFeedback.classList.add('aside-feedback--active');
+    firstFeedbackInput.focus();
 }
 
 const openRecall = function () {
     if (main.classList.contains('main--blured')) {
         asideMenu.classList.remove('aside-menu--active');
         menuButtonIcon.classList.remove('burger-icon--active');
-        asideFeedback.classList.add('aside-feedback--active');
         headerActions.classList.remove('header__actions--blured');
         header.classList.add('header--blured');
     } else {
         main.classList.add('main--blured');
         document.body.classList.add('body--lock');
         header.classList.add('header--blured');
-
         if (mediaQueryDesktop.matches) {
             asideMenu.classList.add('aside-menu--blured');
         }
-        asideRecall.classList.add('aside-recall--active');
-        firstRecallInput.focus();
     }
+    asideRecall.classList.add('aside-recall--active');
+    firstRecallInput.focus();
 }
 
-document.addEventListener('click', (evt) => {
-    const isMenuTarget = evt.target.contains(asideMenu);
+const mainClickTargets = (event) => {
+    const isMenuTarget = event.target.contains(asideMenu);
     if (isMenuTarget) {
         menuButtonIcon.classList.remove('burger-icon--active');
         document.body.classList.remove('body--lock');
@@ -141,8 +168,8 @@ document.addEventListener('click', (evt) => {
         headerActions.classList.remove('header__actions--blured');
     }
 
-    const clickFeedback = evt.target.contains(asideFeedback);
-    if (clickFeedback) {
+    const isFeedbackTarget = event.target.contains(asideFeedback);
+    if (isFeedbackTarget) {
         if (mediaQueryDesktop.matches) {
             asideMenu.classList.remove('aside-menu--blured');
         }
@@ -152,16 +179,29 @@ document.addEventListener('click', (evt) => {
         asideFeedback.classList.remove('aside-feedback--active');
     }
 
-    const clickFeedbackButton = evt.target.classList.contains('contact-button2');
-    if (clickFeedbackButton) {
+    const isRecallTarget = event.target.contains(asideFeedback);
+    if (isRecallTarget) {
+        if (mediaQueryDesktop.matches) {
+            asideMenu.classList.remove('aside-menu--blured');
+        }
+        header.classList.remove('header--blured');
+        document.body.classList.remove('body--lock');
+        main.classList.remove('main--blured');
+        asideRecall.classList.remove('aside-recall--active');
+    }
+
+    const isFeedbackButtonTarget = event.target.classList.contains('contact-button2');
+    if (isFeedbackButtonTarget) {
         openFeedback();
     }
 
-    const clickRecallButton = evt.target.classList.contains('contact-button1');
-    if (clickRecallButton) {
+    const isRecallButtonTarget = event.target.classList.contains('contact-button1');
+    if (isRecallButtonTarget) {
         openRecall();
     }
-})
+}
+
+document.addEventListener('click', mainClickTargets);
 
 const mediaQueryDesktop = window.matchMedia("(min-width: 1366px)");
 
@@ -187,19 +227,6 @@ const closeRecallAside = function () {
 }
 
 closeRecall.addEventListener('click', closeRecallAside);
-
-document.addEventListener('click', (evt) => {
-    const clickRecall = evt.target.contains(asideFeedback);
-    if (clickRecall) {
-        if (mediaQueryDesktop.matches) {
-            asideMenu.classList.remove('aside-menu--blured');
-        }
-        header.classList.remove('header--blured');
-        document.body.classList.remove('body--lock');
-        main.classList.remove('main--blured');
-        asideRecall.classList.remove('aside-recall--active');
-    }
-})
 
 const tecTypes = [
     'Ремонт ноутбуков',
@@ -230,7 +257,7 @@ const showTecTypes = function () {
     }
 }
 
-tecTypeShowAll.addEventListener('click', showTecTypes)
+tecTypeShowAll.addEventListener('click', showTecTypes);
 
 const prices = [
     {

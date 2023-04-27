@@ -67,7 +67,8 @@
         font-weight: 500;
         transition: opacity 0.2s linear;
 
-        &:hover {
+
+        &--active {
             opacity: 0.6;
 
             &::before {
@@ -81,6 +82,21 @@
                 background-color: #41F6D7;
             }
         }
+
+        // &:hover {
+        //     opacity: 0.6;
+
+        //     &::before {
+        //         display: block;
+        //         position: absolute;
+        //         content: '';
+        //         width: 4px;
+        //         height: 32px;
+        //         border-radius: 0 4px 4px 0;
+        //         transform: translate(-24px, -4px);
+        //         background-color: #41F6D7;
+        //     }
+        // }
     }
 
     &__footer {

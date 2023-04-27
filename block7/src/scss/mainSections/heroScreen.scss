@@ -56,24 +56,24 @@
         }
     }
 
-    &__item {
-        a {
-            background-color: $bgColor;
-            display: block;
-            font-size: 16px;
-            font-weight: 500;
-            line-height: 24px;
-            letter-spacing: -0.2px;
-            color: $sideText;
-            text-decoration: none;
-            border: 2px solid transparent;
-            padding: 8px 22px;
+    &__item {}
 
-            &:hover {
-                background-color: $white;
-                border: 2px solid #B8FFEC;
-                border-radius: 6px;
-            }
+    &__link {
+        background-color: $bgColor;
+        display: block;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 24px;
+        letter-spacing: -0.2px;
+        color: $sideText;
+        text-decoration: none;
+        border: 2px solid transparent;
+        padding: 8px 22px;
+
+        &--active {
+            background-color: $white;
+            border: 2px solid #B8FFEC;
+            border-radius: 6px;
         }
     }
 }
